@@ -33,6 +33,7 @@
 Для реализации системы предлагается следующий стек технологий:
 + Backend:
 +     ЯП Python
++     Модуль OpenCV
 +     SQLAlchemy 
 +     Фреймворк Flask
 + Frontend:
