@@ -8,23 +8,23 @@ def blur_par(num):
 
 
 PATH_TO_IMAGE = 'static/img/'
+reader = eo.Reader(['en'], gpu=True)
 
 
-def open_detected_text(filename):
+def detect_and_open_text(filename):
     #  start
     image = cv2.cvtColor(cv2.imread(PATH_TO_IMAGE + filename), cv2.COLOR_BGR2RGB)
     sh = image.shape
     img = image.copy()
     par0, par1 = blur_par(sh[0]), blur_par(sh[1])
+
+    #  bluring
     img = cv2.GaussianBlur(img, (par0, par1), 0)
 
     #  thresholding
-
     _, img = cv2.threshold(img, 80, 200, cv2.ADAPTIVE_THRESH_MEAN_C)
 
     #  reading
-    reader = eo.Reader(['en'], gpu=True)
-
     text = reader.readtext(img)
     for t in text:
         box, text, score = t

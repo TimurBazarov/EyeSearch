@@ -1,6 +1,6 @@
-from text_detecting import open_detected_text
+from text_detecting import detect_and_open_text
 
 
-open_detected_text('img1.png')
-open_detected_text('img2.png')
-open_detected_text('img3.png')
+detect_and_open_text('img1.png')
+detect_and_open_text('img2.png')
+detect_and_open_text('img3.png')
