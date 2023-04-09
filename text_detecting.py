@@ -2,12 +2,8 @@ import cv2
 import easyocr as eo
 import matplotlib.pyplot as pl
 
+from static import PATH_TO_IMAGE, blur_par
 
-def blur_par(num):
-    return num // 800 * 2 + 1
-
-
-PATH_TO_IMAGE = 'static/img/'
 reader = eo.Reader(['en'], gpu=True)
 
 
