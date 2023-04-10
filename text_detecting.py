@@ -7,7 +7,7 @@ from static import PATH_TO_IMAGE, blur_par
 reader = eo.Reader(['en'], gpu=True)
 
 
-def detect_and_open_text(filename):
+def detect_text(filename: str) -> list:
     #  start
     image = cv2.cvtColor(cv2.imread(PATH_TO_IMAGE + filename), cv2.COLOR_BGR2RGB)
     sh = image.shape
@@ -20,7 +20,20 @@ def detect_and_open_text(filename):
     # _, img = cv2.threshold(img, 80, 200, cv2.ADAPTIVE_THRESH_MEAN_C)
 
     #  reading
-    text = reader.readtext(img)
+    result = reader.readtext(img)
+    text = []
+    for t in result:
+        box, data, score = t
+        text.append(data)
+
+    return text
+
+
+def show_text_from(filename: str) -> None:
+    text = detect_text(filename)
+    image = cv2.cvtColor(cv2.imread(PATH_TO_IMAGE + filename), cv2.COLOR_BGR2RGB)
+    img = image.copy()
+
     for t in text:
         box, text, score = t
         cv2.rectangle(img, [int(i) for i in box[0]], [int(i) for i in box[2]], (255, 255, 0))
