@@ -36,8 +36,14 @@ def show_text_from(filename: str) -> None:
 
     for t in text:
         box, text, score = t
-        cv2.rectangle(img, [int(i) for i in box[0]], [int(i) for i in box[2]], (255, 255, 0))
-        cv2.putText(img, text, [int(i) for i in box[0]], cv2.FONT_HERSHEY_COMPLEX, 1, (225, 0, 0), 2)
+        cv2.rectangle(img,
+                      [int(i) for i in box[0]],
+                      [int(i) for i in box[2]],
+                      (255, 255, 0))
+        cv2.putText(img, text,
+                    [int(i) for i in box[0]],
+                    cv2.FONT_HERSHEY_COMPLEX,
+                    1, (225, 0, 0), 2)
 
     # output
     pl.imshow(img)

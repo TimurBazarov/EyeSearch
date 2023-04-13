@@ -7,7 +7,9 @@ class QRCodeError(Exception):
 
 
 #  detect and decode qr code
-def dad_qr(filename: str):
+def dad_qr(
+        filename: str
+):
     try:
         image = cv2.imread(PATH_TO_IMAGE + filename)
         detect = cv2.QRCodeDetector()

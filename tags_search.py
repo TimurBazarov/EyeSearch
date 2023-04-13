@@ -84,12 +84,12 @@ if filename[filename.find('.'):] in video_list:
     cap = cv2.VideoCapture(filename)
     while True:
         ret, frames = cap.read()
-        if ret == True:
+        if ret:
             gray = cv2.cvtColor(frames, cv2.COLOR_BGR2GRAY)
             for i in m_list:
                 car_cascade = m_list[i]
                 cars = car_cascade.detectMultiScale(gray, 1.1, 1)
-                if not(cars.__class__.__name__ == 'tuple'):
+                if not (cars.__class__.__name__ == 'tuple'):
                     if cars.any() and i not in tag_list:
                         tag_list.append(i)
                 for (x, y, w, h) in cars:
