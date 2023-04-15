@@ -1,27 +1,54 @@
-def test1():
-    from text_detecting import show_text_from, detect_text
+from flask import Flask
+from flask_login import LoginManager
+from flask_wtf import FlaskForm
+from wtforms import PasswordField, BooleanField, SubmitField, EmailField
+from wtforms.validators import DataRequired
 
-    print(detect_text('img1.png'))
-    print(detect_text('img2.png'))
-    print(detect_text('img3.png'))
-    # show_text_from('eq2.png')
+import db_session
+from users import User
 
-
-def test2():
-    from dad_qr import dad_qr
-
-    print(dad_qr('qr_code1.png'))  # 100,20,40,60,20,px
-    print(dad_qr('qr_code2.png'))  # a funny cow
-
-
-def test3():
-    from eq_solve import das_eq
-
-    print(das_eq('eq1.png'))
-    print(das_eq('eq2.png'))
-    print(das_eq('eq3.png'))
+app = Flask(__name__)
+login_manager = LoginManager()
+login_manager.init_app(app)
+app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
 
 
-# test1()
-# test2()
-test3()
+@login_manager.user_loader
+def load_user(user_id):
+    db_sess = db_session.create_session()
+    return db_sess.query(User).get(user_id)
+
+
+class LoginForm(FlaskForm):
+    email = EmailField('Почта', validators=[DataRequired()])
+    password = PasswordField('Пароль', validators=[DataRequired()])
+    remember_me = BooleanField('Запомнить меня')
+    submit = SubmitField('Войти')
+
+
+@app.route('/functional')
+def functional():
+    pass
+
+
+@app.route('/landing')
+def landing():
+    pass
+
+
+@app.route('/profile')
+def profile():
+    pass
+
+
+@app.route('/register')
+def register():
+    pass
+
+
+def main():
+    app.run()
+
+
+if __name__ == '__main__':
+    main()

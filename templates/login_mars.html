@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block content %}
+<meta charset="utf-8">
+<h1>
+    <img src="/static/img/MARS-2-7.png" alt="здесь должна была быть картинка, но не нашлась">Аварийный доступ
+</h1>
+<form action="" method="post" novalidate>
+    {{ form.hidden_tag() }}
+    <p>
+        {{ form.id_astr.label }}<br>
+        {{ form.id_astr(class="form-control") }}<br>
+        {% for error in form.id_astr.errors %}
+    <div class="alert alert-danger" role="alert">
+        {{ error }}
+    </div>
+    {% endfor %}
+    </p>
+    <p>
+        {{ form.password_astr.label }}<br>
+        {{ form.password_astr(class="form-control", type="password") }}<br>
+        {% for error in form.password_astr.errors %}
+    <div class="alert alert-danger" role="alert">
+        {{ error }}
+    </div>
+    {% endfor %}
+    </p>
+    </p>
+    <p>
+        {{ form.id_cap.label }}<br>
+        {{ form.id_cap(class="form-control", type="password") }}<br>
+        {% for error in form.id_cap.errors %}
+    <div class="alert alert-danger" role="alert">
+        {{ error }}
+    </div>
+    {% endfor %}
+    </p>
+    </p>
+    <p>
+        {{ form.password_cap.label }}<br>
+        {{ form.password_cap(class="form-control", type="password") }}<br>
+        {% for error in form.password_cap.errors %}
+    <div class="alert alert-danger" role="alert">
+        {{ error }}
+    </div>
+    {% endfor %}
+    </p>
+    <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
+</form>
+{% endblock %}

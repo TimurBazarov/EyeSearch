@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+ <html>
+  <head>
+  <meta charset="utf-8">
+  <title>EyeSearch</title>
+  <style>
+   button {
+    background: #f2f6f8; /* Цвет фона */
+    border: 1px solid #7a7b7e; /* Параметры рамки */
+    width: 550px; /* Ширина кнопки */
+    height: 60px; /* Высота */
+    border-radius: 5px;
+   }
+   .gradient {
+     background: linear-gradient(to right, #0000FF, #00FFFF);
+     padding: 10px;
+     border: 1px solid #333;
+    }
+  html {
+    min-height: 100%;
+  }
+  body {
+      background: -webkit-linear-gradient(#000000, #696969);
+      background: -o-linear-gradient(#000000, #696969);
+      background: -moz-linear-gradient(#000000, #696969);
+      background: linear-gradient(#000000, #696969);
+      background-color: #000000;
+  }
+  form {
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      padding-top: 20px;
+      margin: 300px auto;
+      width: 550px;
+  }
+    .gradient2 {
+     background: linear-gradient(to right, #006400, #32CD32);
+     padding: 10px;
+     border: 1px solid #333;
+    }
+    .gradient3 {
+     background: linear-gradient(to right, #FF0000, #FF4500);
+     padding: 10px;
+     border: 1px solid #333;
+    }
+    div{
+        text-align:center;
+    }
+    .navbar-custom{
+  left: 0;
+  right: 0;
+  top: 50%;
+  width: 100%;
+  text-align: center;
+  display: inline-block;
+  list-style-type: none;
+    }
+    .center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+  </style>
+      <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+          crossorigin="anonymous">
+ </head>
+ <body>
+    <nav class="navbar navbar-dark bg-transparent">
+        <a class="navbar-brand" href="#">Регистрация</a>
+    </nav>
+
+   <form action="" method="post">
+        <h1>
+    <img src="/static/img/eyesearch.png" alt="здесь должна была быть картинка, но не нашлась" class="center">
+             {{ form.hidden_tag() }}
+    <p>
+        {{ form.nickname.label }}<br>
+        {{ form.nickname(class="form-control") }}<br>
+        {% for error in form.nickname.errors %}
+            <p class="alert alert-danger" role="alert">
+                {{ error }}
+            </p>
+        {% endfor %}
+    </p>
+    <p>
+        {{ form.email.label }}<br>
+        {{ form.email(class="form-control", type="email") }}<br>
+        {% for error in form.email.errors %}
+            <p class="alert alert-danger" role="alert">
+                {{ error }}
+            </p>
+        {% endfor %}
+    </p>
+    <p>
+        {{ form.password.label }}<br>
+        {{ form.password(class="form-control", type="password") }}<br>
+        {% for error in form.password.errors %}
+            <p class="alert alert-danger" role="alert">
+                {{ error }}
+            </p>
+        {% endfor %}
+    </p>
+    <p>
+        {{ form.password_again.label }}<br>
+        {{ form.password_again(class="form-control", type="password") }}<br>
+        {% for error in form.password_again.errors %}
+            <p class="alert alert-danger" role="alert">
+                {{ error }}
+            </p>
+        {% endfor %}
+    </p>
+    <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
+    {{message}}
+</h1>
+
+   </form>
+ </body>
+</html>
