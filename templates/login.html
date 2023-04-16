@@ -31,18 +31,8 @@
       justify-content: center;
       flex-direction: column;
       padding-top: 20px;
-      margin: 0 auto;
+      margin: 300px auto;
       width: 550px;
-  }
-  form img {
-  justify-content: center;
-  width: 550px;
-  margin: 50px auto 0;
-  }
-    form input {
-  justify-content: center;
-  width: 550px;
-  margin: 0 auto 0;
   }
     .gradient2 {
      background: linear-gradient(to right, #006400, #32CD32);
@@ -79,18 +69,33 @@
           crossorigin="anonymous">
  </head>
  <body>
-     <div>
-        <nav class="navbar navbar-dark bg-transparent">
-            <a class="navbar-brand" href="#">EyeSearch</a>
-        </nav>
-     </div>
-   <form>
-        <h1>
-    <img src="/static/img/eyesearch.png" alt="здесь должна была быть картинка, но не нашлась" class="center">
-</h1>
-   </form>
-  <form action="http://127.0.0.1:5000/func"><input type="submit" name="submit_button" value="ФУНКЦИИ" class="gradient"></form>
-  <form action="http://127.0.0.1:5000/login"><input type="submit" name="submit_button" value="ВОЙТИ" class="gradient2"></form>
-  <form action="http://127.0.0.1:5000/register"><input type="submit" name="submit_button" value="РЕГИСТРАЦИЯ" class="gradient3"></form>
+    <nav class="navbar navbar-dark bg-transparent">
+        <a class="navbar-brand" href="#">Авторизация</a>
+    </nav>
+    <form action="" method="post">
+        <img src="/static/img/eyesearch.png" alt="здесь должна была быть картинка, но не нашлась" class="center">
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.email.label }}<br>
+            {{ form.email(class="form-control", type="email") }}<br>
+            {% for error in form.email.errors %}
+                <div class="alert alert-danger" role="alert">
+                    {{ error }}
+                </div>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.password.label }}<br>
+            {{ form.password(class="form-control", type="password") }}<br>
+            {% for error in form.password.errors %}
+                <div class="alert alert-danger" role="alert">
+                    {{ error }}
+                </div>
+            {% endfor %}
+        </p>
+        <p>{{ form.remember_me() }} {{ form.remember_me.label }}</p>
+        <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
+        <div>{{ message }}</div>
+    </form>
  </body>
 </html>
