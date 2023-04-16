@@ -4,20 +4,15 @@
   <meta charset="utf-8">
   <title>EyeSearch</title>
   <style>
-   .gradient {
-     background: linear-gradient(to right, #0000FF, #00FFFF);
-     padding: 10px;
-     border: 1px solid #333;
-    }
   html {
     min-height: 100%;
   }
   body {
-      background: -webkit-linear-gradient(#000000, #696969);
-      background: -o-linear-gradient(#000000, #696969);
-      background: -moz-linear-gradient(#000000, #696969);
-      background: linear-gradient(#000000, #696969);
-      background-color: #000000;
+      background: -webkit-linear-gradient(#000000, #2F4F4F);
+      background: -o-linear-gradient(#000000, #2F4F4F);
+      background: -moz-linear-gradient(#000000, #2F4F4F);
+      background: linear-gradient(#000000, #2F4F4F);
+      background-color: #000000;;
   }
   form {
       display: flex;
@@ -27,16 +22,6 @@
       margin: 300px auto;
       width: 550px;
   }
-    .gradient2 {
-     background: linear-gradient(to right, #006400, #32CD32);
-     padding: 10px;
-     border: 1px solid #333;
-    }
-    .gradient3 {
-     background: linear-gradient(to right, #FF0000, #FF4500);
-     padding: 10px;
-     border: 1px solid #333;
-    }
     div{
         text-align:center;
     }
@@ -69,7 +54,7 @@
         <img src="/static/img/icon.png" alt="здесь должна была быть картинка, но не нашлась" class="center">
         {{ form.hidden_tag() }}
         <p>
-            {{ form.email.label }}<br>
+            <font color="white" size="6" face="Optima">{{ form.email.label }}</font><br>
             {{ form.email(class="form-control", type="email") }}<br>
             {% for error in form.email.errors %}
                 <div class="alert alert-danger" role="alert">
@@ -78,7 +63,7 @@
             {% endfor %}
         </p>
         <p>
-            {{ form.password.label }}<br>
+            <font color="white" size="6" face="Optima">{{ form.password.label }}</font><br>
             {{ form.password(class="form-control", type="password") }}<br>
             {% for error in form.password.errors %}
                 <div class="alert alert-danger" role="alert">
@@ -86,7 +71,8 @@
                 </div>
             {% endfor %}
         </p>
-        <p>{{ form.remember_me() }} {{ form.remember_me.label }}</p>
+        <p>{{ form.remember_me() }} <font color="white" size="3" face="Optima">
+            {{ form.remember_me.label }}</font></p>
         <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
         <div>{{ message }}</div>
     </form>

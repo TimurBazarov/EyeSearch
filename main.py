@@ -11,6 +11,7 @@ app = Flask(__name__)
 login_manager = LoginManager()
 login_manager.init_app(app)
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
+LOGIN = False
 
 
 @login_manager.user_loader
@@ -37,6 +38,7 @@ class LoginForm(FlaskForm):
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
+
     form = RegisterForm()
     if form.validate_on_submit():
         if form.password.data != form.password_again.data:
@@ -55,7 +57,9 @@ def register():
         user.set_password(form.password.data)
         db_sess.add(user)
         db_sess.commit()
-        return redirect('/login')
+        global LOGIN
+        LOGIN = True
+        return redirect('/')
     return render_template('register.html', title='Регистрация', form=form)
 
 
@@ -67,6 +71,8 @@ def login():
         user = db_sess.query(User).filter(User.email == form.email.data).first()
         if user and user.check_password(form.password.data):
             login_user(user, remember=form.remember_me.data)
+            global LOGIN
+            LOGIN = True
             return redirect("/")
         return render_template('login.html',
                                message="Неправильный логин или пароль",
@@ -82,12 +88,22 @@ def functional():
 @app.route('/landing')
 @app.route('/')
 def landing():
-    return render_template('sides.html', title='Начальная страница')
+    if LOGIN:
+        return render_template('work_sides.html', title='Начальная страница')
+    else:
+        return render_template('sides.html', title='Начальная страница')
 
 
 @app.route('/profile')
 def profile():
     pass
+
+
+@app.route('/quit')
+def quit():
+    global LOGIN
+    LOGIN = False
+    return redirect('/')
 
 
 def main():

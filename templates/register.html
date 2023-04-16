@@ -4,11 +4,6 @@
   <meta charset="utf-8">
   <title>EyeSearch</title>
   <style>
-   .gradient {
-     background: linear-gradient(to right, #0000FF, #00FFFF);
-     padding: 10px;
-     border: 1px solid #333;
-    }
   html {
     min-height: 100%;
   }
@@ -27,16 +22,6 @@
       margin: 300px auto;
       width: 550px;
   }
-    .gradient2 {
-     background: linear-gradient(to right, #006400, #32CD32);
-     padding: 10px;
-     border: 1px solid #333;
-    }
-    .gradient3 {
-     background: linear-gradient(to right, #FF0000, #FF4500);
-     padding: 10px;
-     border: 1px solid #333;
-    }
     div{
         text-align:center;
     }
@@ -71,7 +56,7 @@
     <img src="/static/img/icon.png" alt="здесь должна была быть картинка, но не нашлась" class="center">
              {{ form.hidden_tag() }}
     <p>
-        <font color="white">{{ form.nickname.label }}</font><br>
+        <font color="white" size="6" face="Optima">{{ form.nickname.label }}</font><br>
         {{ form.nickname(class="form-control") }}<br>
         {% for error in form.nickname.errors %}
             <p class="alert alert-danger" role="alert">
@@ -80,7 +65,7 @@
         {% endfor %}
     </p>
     <p>
-        <font color="white">{{ form.email.label }}</font><br>
+        <font color="white" size="6" face="Optima">{{ form.email.label }}</font><br>
         {{ form.email(class="form-control", type="email") }}<br>
         {% for error in form.email.errors %}
             <p class="alert alert-danger" role="alert">
@@ -89,7 +74,7 @@
         {% endfor %}
     </p>
     <p>
-        <font color="white">{{ form.password.label }}</font><br>
+        <font color="white" size="6" face="Optima">{{ form.password.label }}</font><br>
         {{ form.password(class="form-control", type="password") }}<br>
         {% for error in form.password.errors %}
             <p class="alert alert-danger" role="alert">
@@ -98,7 +83,7 @@
         {% endfor %}
     </p>
     <p>
-        <font color="white">{{ form.password_again.label }}</font><br>
+        <font color="white" size="6" face="Optima">{{ form.password_again.label }}</font><br>
         {{ form.password_again(class="form-control", type="password") }}<br>
         {% for error in form.password_again.errors %}
             <p class="alert alert-danger" role="alert">
