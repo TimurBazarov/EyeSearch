@@ -106,6 +106,11 @@ def quit():
     return redirect('/')
 
 
+@app.route('/func')
+def func():
+    return render_template('func.html', title='Начальная страница')
+
+
 def main():
     db_session.global_init('db/users.db')
     app.run()
