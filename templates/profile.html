@@ -1,12 +1,95 @@
-{% extends "base.html" %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>EyeSearch</title>
+    <style>
+   .gradient {
+     background: linear-gradient(to right, #0000FF, #00FFFF);
+     padding: 10px;
+     border: 1px solid #333;
+    }
+  html {
+    min-height: 100%;
+  }
+  body {
+      background: -webkit-linear-gradient(#000000, #2F4F4F);
+      background: -o-linear-gradient(#000000, #2F4F4F);
+      background: -moz-linear-gradient(#000000, #2F4F4F);
+      background: linear-gradient(#000000, #2F4F4F);
+      background-color: #000000;
+  }
+  form {
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      padding-top: 20px;
+      margin: 0 auto;
+      width: 550px;
+  }
+  form img {
+  justify-content: center;
+  width: 550px;
+  margin: 50px auto 0;
+  }
+    form input {
+  justify-content: center;
+  width: 550px;
+  margin: 0 auto 0;
+  }
+    .gradient2 {
+     background: linear-gradient(to right, #006400, #32CD32);
+     padding: 10px;
+     border: 1px solid #333;
+    }
+    .gradient3 {
+     background: linear-gradient(to right, #FF0000, #FF4500);
+     padding: 10px;
+     border: 1px solid #333;
+    }
+    div{
+        text-align:center;
+    }
+    .navbar-custom{
+  left: 0;
+  right: 0;
+  top: 50%;
+  width: 100%;
+  text-align: center;
+  display: inline-block;
+  list-style-type: none;
+    }
+    .center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 200px;
+}
 
-{% block content %}
-<meta charset="utf-8">
+    </style>
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+          crossorigin="anonymous">
+</head>
+<body>
+<div>
+    <nav class="navbar navbar-dark bg-transparent">
+        <a class="navbar-brand" href="#">EyeSearch</a>
+    </nav>
+</div>
 <h1>
-    <img src="/static/img/icon.png" alt="здесь должна была быть картинка, но не нашлась">Аварийный доступ
+    <img src="/static/img/profile_pic.png" alt="здесь должна была быть картинка, но не нашлась" class="center">
 </h1>
-<form action="" method="post" novalidate>
-    {{ form.hidden_tag() }}
-    <button type="button">; style=</button>
-</form>
-{% endblock %}
+<h6>
+    <font color="white">
+        Вы вошли в аккаунт {{nickname}}
+    </font>
+</h6>
+<h6>
+    <font color="white">
+        Email: {{email}}
+    </font>
+</h6>
+</body>
+</html>
