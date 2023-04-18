@@ -12,6 +12,7 @@ login_manager = LoginManager()
 login_manager.init_app(app)
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
 LOGIN = False
+user_id = None
 
 
 @login_manager.user_loader
@@ -71,8 +72,9 @@ def login():
         user = db_sess.query(User).filter(User.email == form.email.data).first()
         if user and user.check_password(form.password.data):
             login_user(user, remember=form.remember_me.data)
-            global LOGIN
+            global LOGIN, user_id
             LOGIN = True
+            user_id = user.id
             return redirect("/")
         return render_template('login.html',
                                message="Неправильный логин или пароль",
@@ -96,7 +98,10 @@ def landing():
 
 @app.route('/profile')
 def profile():
-    pass
+    global user_id
+    db_sess = db_session.create_session()
+    user = db_sess.query(User).filter(User.id == user_id).first()
+    return render_template('profile.html', nickname=user.nickname, email=user.email)
 
 
 @app.route('/quit')
