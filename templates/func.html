@@ -16,6 +16,7 @@ div {
  }
 
    .gradient {
+     margin: 50px auto 0;
      background: linear-gradient(to top, #0000FF, #00FFFF);
      padding: 10px;
      border: 1px solid #333;
@@ -31,30 +32,41 @@ div {
       background: linear-gradient(#000000, #2F4F4F);
       background-color: #000000;
   }
+    form {
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      padding-top: 20px;
+      margin: 0 auto;
+      width: 550px;
+  }
     form input {
-    width: 100px;
-    height: 300px;
+    height: 50px;
     border-radius: 10px;
     color: #FFFFFF;
     font-weight: bold;
+    width: 550px;
   }
     .gradient2 {
      background: linear-gradient(to top, #006400, #32CD32);
      padding: 10px;
      border: 1px solid #333;
      background-image: url(/static/img/text.jpg);
+     margin: 10px auto 0;
     }
     .gradient3 {
      background: linear-gradient(to top, #FF0000, #FF4500);
      padding: 10px;
      border: 1px solid #333;
      background-image: url(/static/img/qr.jpg);
+     margin: 10px auto 0;
     }
     .gradient4 {
      background: linear-gradient(to top, #FF0000, #FF4500);
      padding: 10px;
      border: 1px solid #333;
      background-image: url(/static/img/eyesearch.png);
+     margin: 10px auto 0;
     }
     .navbar-custom{
   left: 0;
@@ -73,9 +85,6 @@ div {
   width: 550px;
   margin: 50px auto 0;
 }
-input{
-margin-bottom:100px;
-}
   </style>
       <link rel="stylesheet"
           href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
@@ -86,41 +95,27 @@ margin-bottom:100px;
         <nav class="navbar navbar-dark bg-transparent">
             <a class="navbar-brand" href="#">EyeSearch</a>
         </nav>
-        <div class="wrap">
-            <form action="http://127.0.0.1:5000/register">
-                <font size="4" face="Optima">
-                    <input type="submit" name="submit_button"
-                           value="РЕШИТЬ&#x00A;УРАВ&#x00A;НЕНИЕ"
-                           class="gradient">
-                </font>
-            </form>
-        </div>
-        <div class="wrap">
-            <form action="http://127.0.0.1:5000/register">
-                <font size="4" face="Optima">
-                    <input type="submit" name="submit_button"
-                           value="НАЙТИ&#x00A;ТЕКСТ"
-                           class="gradient2">
-                </font>
-            </form>
-        </div>
-        <div class="wrap">
-            <form action="http://127.0.0.1:5000/register">
-                <font size="4" face="Optima">
-                    <input type="submit" name="submit_button"
-                           value="QR&#x00A;КОД"
-                           class="gradient3">
-                </font>
-            </form>
-        </div>
-        <div class="last">
-            <form action="http://127.0.0.1:5000/register">
-                <font size="4" face="Optima">
-                    <input type="submit" name="submit_button"
-                           value="ПОИСК&#x00A;ПО&#x00A;ТЭГАМ"
-                           class="gradient4">
-                </font>
-            </form>
-        </div>
+        <p><form action="http://127.0.0.1:5000/register">
+            <font size="4" face="Optima">
+                <input type="submit" name="submit_button"
+                       value="РЕШИТЬ УРАВНЕНИЕ"
+                       class="gradient">
+            </font>
+            <font size="4" face="Optima">
+                <input type="submit" name="submit_button"
+                       value="НАЙТИ ТЕКСТ"
+                       class="gradient2">
+            </font>
+            <font size="4" face="Optima">
+                <input type="submit" name="submit_button"
+                       value="QR КОД"
+                       class="gradient3">
+            </font>
+            <font size="4" face="Optima">
+                <input type="submit" name="submit_button"
+                       value="ПОИСК ПО ТЭГАМ"
+                       class="gradient4">
+            </font>
+        </form></p>
  </body>
 </html>
