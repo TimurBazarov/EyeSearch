@@ -113,7 +113,7 @@ def quit():
 
 @app.route('/func')
 def func():
-    return render_template('func.html', title='Начальная страница')
+    return render_template('func_false.html', title='Начальная страница')
 
 
 def main():
