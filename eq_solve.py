@@ -1,6 +1,7 @@
-from text_detecting import detect_text
-from sympy.solvers import solve
 from sympy import Symbol
+from sympy.solvers import solve
+
+from text_detecting import detect_text
 
 
 class EquationError(Exception):
@@ -13,9 +14,9 @@ class ExpressionError(Exception):
 
 #  detect and solve equation
 def das_eq(
-        filename: str
+        img
 ) -> str:
-    eq = ''.join(detect_text(filename))
+    eq = ''.join(detect_text(img))
     eq = eq.lower()
     x = Symbol('x')
     try:

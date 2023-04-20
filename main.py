@@ -1,10 +1,13 @@
 from flask import Flask, redirect, render_template
 from flask_login import LoginManager, login_user
 from flask_wtf import FlaskForm
-from wtforms import PasswordField, BooleanField, SubmitField, EmailField, StringField
-from wtforms.validators import DataRequired
+from wtforms import PasswordField, BooleanField, SubmitField, EmailField, StringField, FileField
+from wtforms.validators import DataRequired, Regexp
 
 import db_session
+from dad_qr import dad_qr
+from eq_solve import das_eq
+from text_detecting import show_text_from
 from users import User
 
 app = Flask(__name__)
@@ -37,9 +40,15 @@ class LoginForm(FlaskForm):
     submit = SubmitField('Войти')
 
 
+class FuncForm(FlaskForm):
+    file = FileField('Изображение', validators=[Regexp(u'^[^/\\]\.jpg$')])
+    submit1 = SubmitField('')
+    submit2 = SubmitField('')
+    submit3 = SubmitField('')
+
+
 @app.route('/register', methods=['GET', 'POST'])
 def register():
-
     form = RegisterForm()
     if form.validate_on_submit():
         if form.password.data != form.password_again.data:
@@ -82,9 +91,22 @@ def login():
     return render_template('login.html', title='Авторизация', form=form)
 
 
-@app.route('/functional')
+@app.route('/functional', methods=['GET', 'POST'])
 def functional():
-    pass
+    form = FuncForm()
+    if not form.file.data:
+        return
+    file = form.file.data
+    result = None
+    if form['submit_button'] == 'Данные QR кода':
+        result = dad_qr(file)
+    elif form['submit_button'] == 'Текст с изображения':
+        result = show_text_from(file)
+    elif form['submit_button'] == 'Решить уравнение':
+        result = das_eq(file)
+    else:
+        result = 'Не удалось получить данные'
+    return render_template('func.html', form=form, result=result)
 
 
 @app.route('/landing')
