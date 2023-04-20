@@ -1,5 +1,5 @@
 import cv2
-import easyocr as eo
+# import easyocr as eo
 
 from static import blur_par
 

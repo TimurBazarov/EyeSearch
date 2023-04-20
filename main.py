@@ -6,8 +6,8 @@ from wtforms.validators import DataRequired, Regexp
 
 import db_session
 from dad_qr import dad_qr
-from eq_solve import das_eq
-from text_detecting import show_text_from
+# from eq_solve import das_eq
+# from text_detecting import show_text_from
 from users import User
 
 app = Flask(__name__)
@@ -39,12 +39,12 @@ class LoginForm(FlaskForm):
     remember_me = BooleanField('Запомнить меня')
     submit = SubmitField('Войти')
 
-
 class FuncForm(FlaskForm):
-    file = FileField('Изображение', validators=[Regexp(u'^[^/\\]\.jpg$')])
-    submit1 = SubmitField('')
-    submit2 = SubmitField('')
-    submit3 = SubmitField('')
+    file = FileField('Изображение', validators=[DataRequired()])
+    submit1 = SubmitField('РЕШИТЬ УРАВНЕНИЕ')
+    submit2 = SubmitField('НАЙТИ ТЕКСТ')
+    submit3 = SubmitField('QR КОД')
+    submit = SubmitField('Отправить')
 
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -93,26 +93,33 @@ def login():
 
 @app.route('/functional', methods=['GET', 'POST'])
 def functional():
+    global ima
     form = FuncForm()
-    if not form.file.data:
-        return
-    file = form.file.data
     result = None
-    if form['submit_button'] == 'Данные QR кода':
-        result = dad_qr(file)
-    elif form['submit_button'] == 'Текст с изображения':
-        result = show_text_from(file)
-    elif form['submit_button'] == 'Решить уравнение':
-        result = das_eq(file)
+    ima = None
+    print(form.data)
+    if form.submit3.data == True:
+        print('QR')
+        # result = dad_qr(file)
+    elif form.submit2.data == True:
+        print('TEXT')
+        # result = show_text_from(file)
+    elif form.submit1.data == True:
+        print('EQ')
+        # result = das_eq(file)
+    elif form.submit.data == True:
+        ima = form.file.data
     else:
         result = 'Не удалось получить данные'
-    return render_template('func.html', form=form, result=result)
+    return render_template('func.html', form=form, ima=ima)
 
 
 @app.route('/landing')
 @app.route('/')
 def landing():
     if LOGIN:
+        global ima
+        ima = None
         return render_template('work_sides.html', title='Начальная страница')
     else:
         return render_template('sides.html', title='Начальная страница')
