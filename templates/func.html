@@ -92,9 +92,7 @@
             </font>
     </form>
     <form action="" method="post" enctype="multipart/form-data">
-        {% if name %}
-        <img src="/static/img/curent_file.png" alt="" class="center">
-        {% endif %}
+        <img src="{{ name }}" alt="" class="center">
             <p>
                 {{ form.file(type="file", accept=".jpg,.png,.bmp,.gif,.tif") }}
             </p>

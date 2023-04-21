@@ -96,11 +96,12 @@ def login():
 @app.route('/functional', methods=['GET', 'POST'])
 def functional():
     global name_new
+    full_name = None
     form = FuncForm()
     # fetching data from db
     db_sess = db_session.create_session()
     user = db_sess.query(User).filter(User.id == user_id).first()
-    id = user.id
+    id = str(user.id)
     result = None
     if form.submit3.data == True:
         print('QR')
@@ -113,11 +114,12 @@ def functional():
         # result = das_eq(file)
     elif form.submit.data == True:
         f = form.file.data
-        name_new = f'''curent_file.png'''
-        f.save(os.path.join('static/img', name_new))
+        name_new = f'''curent_file{id}.png'''
+        full_name = 'static/img/source/' + name_new
+        f.save(os.path.join('static/img/source', name_new))
     else:
         result = 'Не удалось получить данные'
-    return render_template('func.html', form=form, name=name_new)
+    return render_template('func.html', form=form, name=full_name)
 
 
 @app.route('/landing')
