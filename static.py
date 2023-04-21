@@ -1,4 +1,4 @@
-PATH_TO_IMAGE = 'static/img/'
+PATH_TO_IMAGE = 'static/img/source/'
 PATH_TO_RESULT = 'static/result/'
 
 
