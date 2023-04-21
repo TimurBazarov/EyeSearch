@@ -1,13 +1,13 @@
-from flask import Flask, redirect, render_template, url_for, request
+import os
+
+from flask import Flask, redirect, render_template
 from flask_login import LoginManager, login_user
 from flask_wtf import FlaskForm
-from wtforms import PasswordField, BooleanField, SubmitField, EmailField, StringField
-from wtforms.validators import DataRequired, Regexp
 from flask_wtf.file import FileField, FileRequired
-from werkzeug.utils import secure_filename
-import os
+from wtforms import PasswordField, BooleanField, SubmitField, EmailField, StringField
+from wtforms.validators import DataRequired
+
 import db_session
-from dad_qr import dad_qr
 # from eq_solve import das_eq
 # from text_detecting import show_text_from
 from users import User
@@ -97,6 +97,10 @@ def login():
 def functional():
     global name_new
     form = FuncForm()
+    # fetching data from db
+    db_sess = db_session.create_session()
+    user = db_sess.query(User).filter(User.id == user_id).first()
+    id = user.id
     result = None
     if form.submit3.data == True:
         print('QR')
