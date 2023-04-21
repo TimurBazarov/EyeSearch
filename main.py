@@ -1,6 +1,6 @@
 import os
 
-from flask import Flask, redirect, render_template
+from flask import Flask, redirect, render_template, make_response, request
 from flask_login import LoginManager, login_user
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileRequired
@@ -96,8 +96,8 @@ def login():
 @app.route('/functional', methods=['GET', 'POST'])
 def functional():
     global name_new
-    full_name = None
     form = FuncForm()
+    res = make_response(render_template('func.html', form=form, name=request.cookies.get('file')))
     # fetching data from db
     db_sess = db_session.create_session()
     user = db_sess.query(User).filter(User.id == user_id).first()
@@ -115,11 +115,11 @@ def functional():
     elif form.submit.data == True:
         f = form.file.data
         name_new = f'''curent_file{id}.png'''
-        full_name = 'static/img/source/' + name_new
+        res.set_cookie('file', 'static/img/source/' + name_new)
         f.save(os.path.join('static/img/source', name_new))
     else:
         result = 'Не удалось получить данные'
-    return render_template('func.html', form=form, name=full_name)
+    return res
 
 
 @app.route('/landing')
@@ -155,7 +155,7 @@ def func():
 
 def main():
     global name_new
-    name_new = None
+    name_new = ''
     db_session.global_init('db/users.db')
     app.run()
 
