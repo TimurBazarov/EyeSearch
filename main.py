@@ -22,8 +22,6 @@ app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
 LOGIN = False
 user_id = None
 
-schedule.every().day.at("23:40").do()
-
 
 def clear_source():
     for filename in os.listdir(PATH_TO_SOURCE):
@@ -35,6 +33,9 @@ def clear_source():
                 shutil.rmtree(file_path)
         except Exception as e:
             print('Failed to delete %s. Reason: %s' % (file_path, e))
+
+
+schedule.every().day.at("23:40").do(clear_source)
 
 
 @login_manager.user_loader
