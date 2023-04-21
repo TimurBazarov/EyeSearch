@@ -1,9 +1,11 @@
-from flask import Flask, redirect, render_template
+from flask import Flask, redirect, render_template, url_for, request
 from flask_login import LoginManager, login_user
 from flask_wtf import FlaskForm
-from wtforms import PasswordField, BooleanField, SubmitField, EmailField, StringField, FileField
+from wtforms import PasswordField, BooleanField, SubmitField, EmailField, StringField
 from wtforms.validators import DataRequired, Regexp
-
+from flask_wtf.file import FileField, FileRequired
+from werkzeug.utils import secure_filename
+import os
 import db_session
 from dad_qr import dad_qr
 # from eq_solve import das_eq
@@ -40,7 +42,7 @@ class LoginForm(FlaskForm):
     submit = SubmitField('Войти')
 
 class FuncForm(FlaskForm):
-    file = FileField('Изображение', validators=[DataRequired()])
+    file = FileField('Изображение', validators=[FileRequired()])
     submit1 = SubmitField('РЕШИТЬ УРАВНЕНИЕ')
     submit2 = SubmitField('НАЙТИ ТЕКСТ')
     submit3 = SubmitField('QR КОД')
@@ -93,11 +95,9 @@ def login():
 
 @app.route('/functional', methods=['GET', 'POST'])
 def functional():
-    global ima
+    global name_new
     form = FuncForm()
     result = None
-    ima = None
-    print(form.data)
     if form.submit3.data == True:
         print('QR')
         # result = dad_qr(file)
@@ -108,10 +108,12 @@ def functional():
         print('EQ')
         # result = das_eq(file)
     elif form.submit.data == True:
-        ima = form.file.data
+        f = form.file.data
+        name_new = f'''curent_file.png'''
+        f.save(os.path.join('static/img', name_new))
     else:
         result = 'Не удалось получить данные'
-    return render_template('func.html', form=form, ima=ima)
+    return render_template('func.html', form=form, name=name_new)
 
 
 @app.route('/landing')
@@ -146,6 +148,8 @@ def func():
 
 
 def main():
+    global name_new
+    name_new = None
     db_session.global_init('db/users.db')
     app.run()
 
