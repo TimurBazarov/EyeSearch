@@ -114,7 +114,6 @@ def login():
 
 @app.route('/functional', methods=['GET', 'POST'])
 def functional():
-    global name_new
     form = FuncForm()
     res = make_response(render_template('func.html', form=form, name=request.cookies.get('file')))
     # fetching data from db
@@ -133,9 +132,8 @@ def functional():
         # result = das_eq(file)
     elif form.submit.data == True:
         f = form.file.data
-        name_new = f'''curent_file{id}.png'''
-        res.set_cookie('file', 'static/img/source/' + name_new)
-        f.save(os.path.join('static/img/source', name_new))
+        res.set_cookie('file', f'''static/img/source/curent_file{id}.png''')
+        f.save(os.path.join('static/img/source', f'''curent_file{id}.png'''))
     else:
         result = 'Не удалось получить данные'
     return res
@@ -173,8 +171,6 @@ def func():
 
 
 def main():
-    global name_new
-    name_new = ''
     db_session.global_init('db/users.db')
     app.run()
 
