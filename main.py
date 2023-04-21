@@ -2,7 +2,7 @@ import os
 import shutil
 
 import schedule
-from flask import Flask, redirect, render_template
+from flask import Flask, redirect, render_template, make_response, request
 from flask_login import LoginManager, login_user
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileRequired
@@ -121,16 +121,16 @@ def functional():
     user = db_sess.query(User).filter(User.id == user_id).first()
     id = str(user.id)
     result = None
-    if form.submit3.data == True:
+    if form.submit3.data:
         print('QR')
         # result = dad_qr(file)
-    elif form.submit2.data == True:
+    elif form.submit2.data:
         print('TEXT')
         # result = show_text_from(file)
-    elif form.submit1.data == True:
+    elif form.submit1.data:
         print('EQ')
         # result = das_eq(file)
-    elif form.submit.data == True:
+    elif form.submit.data:
         f = form.file.data
         res.set_cookie('file', f'''static/img/source/curent_file{id}.png''')
         f.save(os.path.join('static/img/source', f'''curent_file{id}.png'''))
