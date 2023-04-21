@@ -1,5 +1,7 @@
 import os
+import shutil
 
+import schedule
 from flask import Flask, redirect, render_template
 from flask_login import LoginManager, login_user
 from flask_wtf import FlaskForm
@@ -8,6 +10,7 @@ from wtforms import PasswordField, BooleanField, SubmitField, EmailField, String
 from wtforms.validators import DataRequired
 
 import db_session
+from static import PATH_TO_SOURCE
 # from eq_solve import das_eq
 # from text_detecting import show_text_from
 from users import User
@@ -18,6 +21,20 @@ login_manager.init_app(app)
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
 LOGIN = False
 user_id = None
+
+schedule.every().day.at("23:40").do()
+
+
+def clear_source():
+    for filename in os.listdir(PATH_TO_SOURCE):
+        file_path = os.path.join(PATH_TO_SOURCE, filename)
+        try:
+            if os.path.isfile(file_path) or os.path.islink(file_path):
+                os.unlink(file_path)
+            elif os.path.isdir(file_path):
+                shutil.rmtree(file_path)
+        except Exception as e:
+            print('Failed to delete %s. Reason: %s' % (file_path, e))
 
 
 @login_manager.user_loader
@@ -40,6 +57,7 @@ class LoginForm(FlaskForm):
     password = PasswordField('Пароль', validators=[DataRequired()])
     remember_me = BooleanField('Запомнить меня')
     submit = SubmitField('Войти')
+
 
 class FuncForm(FlaskForm):
     file = FileField('Изображение', validators=[FileRequired()])
