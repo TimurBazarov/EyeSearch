@@ -114,6 +114,7 @@ def functional():
     elif form.submit.data == True:
         f = form.file.data
         res.set_cookie('file', f'''static/img/source/curent_file{id}.png''')
+        res = make_response(render_template('func.html', form=form, name=request.cookies.get('file')))
         f.save(os.path.join('static/img/source', f'''curent_file{id}.png'''))
     else:
         result = 'Не удалось получить данные'
