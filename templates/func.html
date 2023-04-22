@@ -45,7 +45,7 @@
   display: block;
   margin-left: auto;
   margin-right: auto;
-  width: 50%;
+  width: 200px;
 }
     .gradient2 {
      background: linear-gradient(to top, #006400, #32CD32);
@@ -93,11 +93,14 @@
     </form>
     <form action="" method="post" enctype="multipart/form-data">
         <img src="{{ name }}" alt="" class="center">
-            <p>
-                {{ form.file(type="file", accept=".jpg,.png,.bmp,.gif,.tif") }}
-            </p>
-            {{ form.submit(type="submit", class="btn btn-primary") }}
-            <div>{{ message }}</div>
+        <p>
+            {{ form.file(type="file", accept=".jpg,.png,.bmp,.gif,.tif") }}
+        </p>
+        {{ form.submit(type="submit", class="btn btn-primary") }}
+        <div>{{ message }}</div>
     </form>
+    <font color="white" class="center">
+        {{result}}
+    </font>
  </body>
 </html>

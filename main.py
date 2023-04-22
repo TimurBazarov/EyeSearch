@@ -10,9 +10,12 @@ from wtforms import PasswordField, BooleanField, SubmitField, EmailField, String
 from wtforms.validators import DataRequired
 
 import db_session
+from dad_qr import dad_qr
+from eq_solve import das_eq
 from static import PATH_TO_SOURCE
 # from eq_solve import das_eq
 # from text_detecting import show_text_from
+from text_detecting import show_text_from
 from users import User
 
 app = Flask(__name__)
@@ -21,6 +24,7 @@ login_manager.init_app(app)
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
 LOGIN = False
 user_id = None
+result = 'Обработанные данные'
 
 
 def clear_source():
@@ -116,28 +120,34 @@ def login():
 def functional():
     schedule.run_pending()
     form = FuncForm()
-    res = make_response(render_template('func.html', form=form, name=request.cookies.get('file')))
+    global result
+    res = make_response(render_template('func.html', form=form, name=request.cookies.get('file'), result=result))
     # fetching data from db
     db_sess = db_session.create_session()
     user = db_sess.query(User).filter(User.id == user_id).first()
     id = str(user.id)
-    result = None
+    path = PATH_TO_SOURCE + f'''curent_file{id}.png'''
     if form.submit3.data:
-        print('QR')
-        # result = dad_qr(file)
+        # print('QR')
+        result = dad_qr(path)
+        res = make_response(render_template('func.html', form=form, name=request.cookies.get('file'), result=result))
     elif form.submit2.data:
-        print('TEXT')
-        # result = show_text_from(file)
+        # print('TEXT')
+        result = show_text_from(path)
+        res = make_response(render_template('func.html', form=form, name=request.cookies.get('file'), result=result))
     elif form.submit1.data:
-        print('EQ')
-        # result = das_eq(file)
+        # print('EQ')
+        result = das_eq(path)
+        res = make_response(render_template('func.html', form=form, name=request.cookies.get('file'), result=result))
     elif form.submit.data:
         f = form.file.data
         res.set_cookie('file', f'''static/img/source/curent_file{id}.png''')
-        res = make_response(render_template('func.html', form=form, name=request.cookies.get('file')))
+        res = make_response(render_template('func.html', form=form, name=request.cookies.get('file'), result=result))
         f.save(os.path.join('static/img/source', f'''curent_file{id}.png'''))
     else:
-        result = 'Не удалось получить данные'
+        result = 'Обработанные данные'
+    print(path)
+    print(result)
     return res
 
 
@@ -148,7 +158,12 @@ def landing():
     if LOGIN:
         global ima
         ima = None
-        return render_template('work_sides.html', title='Начальная страница')
+        db_sess = db_session.create_session()
+        user = db_sess.query(User).filter(User.id == user_id).first()
+        id = str(user.id)
+        res = make_response(render_template('work_sides.html', title='Начальная страница'))
+        res.set_cookie('file', f'''static/img/source/curent_file{id}.png''')
+        return res
     else:
         return render_template('sides.html', title='Начальная страница')
 

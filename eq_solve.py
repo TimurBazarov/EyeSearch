@@ -4,14 +4,6 @@ from sympy.solvers import solve
 from text_detecting import detect_text
 
 
-class EquationError(Exception):
-    pass
-
-
-class ExpressionError(Exception):
-    pass
-
-
 #  detect and solve equation
 def das_eq(
         path: str
@@ -29,10 +21,10 @@ def das_eq(
         else:
             eq = first_part + '-' + sec_part
     except:
-        raise ExpressionError
+        return 'Не удалось распознать уравнение'
 
     try:
         result = solve(eq, x)
-        return result
+        return f'Ответ: {result}'
     except:
-        raise EquationError
+        return 'Не удалось распознать уравнение'

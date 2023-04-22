@@ -3,7 +3,7 @@ import easyocr as eo
 
 from static import blur_par
 
-reader = eo.Reader(['en'], gpu=True)
+reader = eo.Reader(['en', 'ru'], gpu=True)
 
 
 def detect_text(path: str) -> list:
