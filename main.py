@@ -13,8 +13,6 @@ import db_session
 from dad_qr import dad_qr
 from eq_solve import das_eq
 from static import PATH_TO_SOURCE
-# from eq_solve import das_eq
-# from text_detecting import show_text_from
 from text_detecting import show_text_from
 from users import User
 
@@ -128,15 +126,12 @@ def functional():
     id = str(user.id)
     path = PATH_TO_SOURCE + f'''curent_file{id}.png'''
     if form.submit3.data:
-        # print('QR')
         result = dad_qr(path)
         res = make_response(render_template('func.html', form=form, name=request.cookies.get('file'), result=result))
     elif form.submit2.data:
-        # print('TEXT')
         result = show_text_from(path)
         res = make_response(render_template('func.html', form=form, name=request.cookies.get('file'), result=result))
     elif form.submit1.data:
-        # print('EQ')
         result = das_eq(path)
         res = make_response(render_template('func.html', form=form, name=request.cookies.get('file'), result=result))
     elif form.submit.data:
