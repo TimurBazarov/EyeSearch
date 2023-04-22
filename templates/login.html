@@ -1,9 +1,9 @@
 <!DOCTYPE html>
- <html>
-  <head>
-  <meta charset="utf-8">
-  <title>EyeSearch</title>
-  <style>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>EyeSearch</title>
+    <style>
   html {
     min-height: 100%;
   }
@@ -40,41 +40,42 @@
   margin-right: auto;
   width: 50%;
 }
-  </style>
-      <link rel="stylesheet"
+
+    </style>
+    <link rel="stylesheet"
           href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
           crossorigin="anonymous">
- </head>
- <body>
-    <nav class="navbar navbar-dark bg-transparent">
-        <a class="navbar-brand" href="#">Авторизация</a>
-    </nav>
-    <form action="" method="post">
-        <img src="/static/img/icon.png" alt="здесь должна была быть картинка, но не нашлась" class="center">
-        {{ form.hidden_tag() }}
-        <p>
-            <font color="white" size="6" face="Optima">{{ form.email.label }}</font><br>
-            {{ form.email(class="form-control", type="email") }}<br>
-            {% for error in form.email.errors %}
-                <div class="alert alert-danger" role="alert">
-                    {{ error }}
-                </div>
-            {% endfor %}
-        </p>
-        <p>
-            <font color="white" size="6" face="Optima">{{ form.password.label }}</font><br>
-            {{ form.password(class="form-control", type="password") }}<br>
-            {% for error in form.password.errors %}
-                <div class="alert alert-danger" role="alert">
-                    {{ error }}
-                </div>
-            {% endfor %}
-        </p>
-        <p>{{ form.remember_me() }} <font color="white" size="3" face="Optima">
-            {{ form.remember_me.label }}</font></p>
-        <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
-        <div>{{ message }}</div>
-    </form>
- </body>
+</head>
+<body>
+<nav class="navbar navbar-dark bg-transparent">
+    <a class="navbar-brand" href="#">Авторизация</a>
+</nav>
+<form action="" method="post">
+    <img src="/static/img/icon.png" alt="здесь должна была быть картинка, но не нашлась" class="center">
+    {{ form.hidden_tag() }}
+    <p>
+        <font color="white" size="6" face="Optima">{{ form.email.label }}</font><br>
+        {{ form.email(class="form-control", type="email") }}<br>
+        {% for error in form.email.errors %}
+    <div class="alert alert-danger" role="alert">
+        {{ error }}
+    </div>
+    {% endfor %}
+    </p>
+    <p>
+        <font color="white" size="6" face="Optima">{{ form.password.label }}</font><br>
+        {{ form.password(class="form-control", type="password") }}<br>
+        {% for error in form.password.errors %}
+    <div class="alert alert-danger" role="alert">
+        {{ error }}
+    </div>
+    {% endfor %}
+    </p>
+    <p>{{ form.remember_me() }} <font color="white" size="3" face="Optima">
+        {{ form.remember_me.label }}</font></p>
+    <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
+    <div>{{ message }}</div>
+</form>
+</body>
 </html>
