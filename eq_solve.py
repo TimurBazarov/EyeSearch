@@ -14,9 +14,9 @@ class ExpressionError(Exception):
 
 #  detect and solve equation
 def das_eq(
-        img
+        path: str
 ) -> str:
-    eq = ''.join(detect_text(img))
+    eq = ''.join(detect_text(path))
     eq = eq.lower()
     x = Symbol('x')
     try:

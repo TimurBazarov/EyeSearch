@@ -7,9 +7,10 @@ class QRCodeError(Exception):
 
 #  detect and decode qr code
 def dad_qr(
-        image
+        path
 ):
     try:
+        image = cv2.imread(path)
         detect = cv2.QRCodeDetector()
         value, points, straight_qrcode = detect.detectAndDecode(image)
         return value

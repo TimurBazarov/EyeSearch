@@ -1,13 +1,13 @@
 import cv2
-# import easyocr as eo
+import easyocr as eo
 
 from static import blur_par
 
 reader = eo.Reader(['en'], gpu=True)
 
 
-def detect_text(image) -> list:
-    image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+def detect_text(path: str) -> list:
+    image = cv2.cvtColor(cv2.imread(path), cv2.COLOR_BGR2RGB)
     sh = image.shape
     img = image.copy()
     img = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
@@ -27,6 +27,6 @@ def detect_text(image) -> list:
     return text
 
 
-def show_text_from(img):
-    text = detect_text(img)
-    return text
+def show_text_from(path):
+    text = detect_text(path)
+    return '\n'.join(text)
