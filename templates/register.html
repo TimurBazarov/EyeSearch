@@ -14,6 +14,11 @@
       background: linear-gradient(#000000, #2F4F4F);
       background-color: #000000;
   }
+   .gradient2 {
+     background: linear-gradient(to right, #006400, #32CD32);
+     padding: 10px;
+     border: 1px solid #333;
+    }
   form {
       display: flex;
       justify-content: center;
@@ -40,6 +45,7 @@
   margin-right: auto;
   width: 50%;
 }
+
 
     </style>
     <link rel="stylesheet"
@@ -95,7 +101,11 @@
         <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
         {{message}}
     </h1>
-
+    <form action="http://127.0.0.1:5000/login">
+        <font size="5" face="Optima">
+            <input type="submit" name="submit_button" value="ВОЙТИ" class="gradient2">
+        </font>
+    </form>
 </form>
 </body>
 </html>
