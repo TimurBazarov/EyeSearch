@@ -35,11 +35,9 @@ def clear_source():
             print('Failed to delete %s. Reason: %s' % (file_path, e))
 
 
-schedule.every().day.at("23:40").do(clear_source)
-
-
 @login_manager.user_loader
 def load_user(user_id):
+    schedule.run_pending()
     db_sess = db_session.create_session()
     return db_sess.query(User).get(user_id)
 
@@ -70,6 +68,7 @@ class FuncForm(FlaskForm):
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
+    schedule.run_pending()
     form = RegisterForm()
     if form.validate_on_submit():
         if form.password.data != form.password_again.data:
@@ -96,6 +95,7 @@ def register():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    schedule.run_pending()
     form = LoginForm()
     if form.validate_on_submit():
         db_sess = db_session.create_session()
@@ -114,6 +114,7 @@ def login():
 
 @app.route('/functional', methods=['GET', 'POST'])
 def functional():
+    schedule.run_pending()
     form = FuncForm()
     res = make_response(render_template('func.html', form=form, name=request.cookies.get('file')))
     # fetching data from db
@@ -142,6 +143,7 @@ def functional():
 @app.route('/landing')
 @app.route('/')
 def landing():
+    schedule.run_pending()
     if LOGIN:
         global ima
         ima = None
@@ -152,6 +154,7 @@ def landing():
 
 @app.route('/profile')
 def profile():
+    schedule.run_pending()
     global user_id
     db_sess = db_session.create_session()
     user = db_sess.query(User).filter(User.id == user_id).first()
@@ -160,6 +163,7 @@ def profile():
 
 @app.route('/quit')
 def quit():
+    schedule.run_pending()
     global LOGIN
     LOGIN = False
     return redirect('/')
@@ -167,11 +171,13 @@ def quit():
 
 @app.route('/func')
 def func():
+    schedule.run_pending()
     return render_template('func_false.html', title='Начальная страница')
 
 
 def main():
     db_session.global_init('db/users.db')
+    schedule.every().day.at("04:30").do(clear_source)
     app.run()
 
 
